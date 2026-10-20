@@ -1,10 +1,10 @@
 {
   "name": "practice-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Practing my backend skills",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "dev": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
@@ -13,9 +13,12 @@
   "keywords": [],
   "author": "Asmin Gautam",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/asmingtm/practice-backend/issues"
   },
-  "homepage": "https://github.com/asmingtm/practice-backend#readme"
+  "homepage": "https://github.com/asmingtm/practice-backend#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
 }
