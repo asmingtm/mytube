@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import { DATA_LIMIT } from "./constants";
 
 export const app = express();
 
@@ -10,9 +11,14 @@ app.use(cors({
 }));
 
 app.use(express.json({
-    limit: "16kb"
+    limit: DATA_LIMIT
 }));
 
 app.use(express.urlencoded({
-    
+    limit: DATA_LIMIT,
+    extended: false, 
 }));
+
+app.use(express.static("public"));
+
+app.use(cookieParser());
