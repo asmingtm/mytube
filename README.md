@@ -3,4 +3,6 @@
 A practice repository which contains my backend practice files.
 
 ## Links
-Legacy codes: [View Files](./md/legacy.md)
+Sources & stored informations
+- [Refrence for models](https://app.eraser.io/workspace/YtPqZ1VogxGy1jzIDkzj)
+- [Legacy codes](./md/legacy.md)
