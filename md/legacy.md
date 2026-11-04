@@ -2,7 +2,7 @@
 # Legacy codes & snippets
 There are codes that are unused or optional version of the best approach.
 
-### Connecting DB in one file
+### Connecting DB in one file instead of using `./src/db/` file.
 ```js
 require("dotenv").config({ path: "./env" });
 
@@ -28,4 +28,10 @@ const app = express();
         throw err;
     }
 })();
+```
+### Async function utility with `Promises` instead of `try` & `catch` blocks.
+```js
+export const asyncHandler = (reqHandler) => (req, res, next) => (req, res, next) => {
+    Promise.resolve(reqHandler(req, res, next)).catch(next)
+}
 ```
