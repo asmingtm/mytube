@@ -3,13 +3,9 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 const userSchemaDefinition = {
-    id: {
-        type: String,
-        required: [true, "userId is required!"],
-    },
     username: {
         type: String,
-        require: [true, "username is required"],
+        required: [true, "username is required"],
         unique: true,
         lowercase: true,
         trim: true,
@@ -17,20 +13,20 @@ const userSchemaDefinition = {
     },
     email: {
         type: String,
-        require: [true, "email is required"],
+        required: [true, "email is required"],
         unique: true,
         lowercase: true,
         trim: true,
     },
     fullName: {
         type: String,
-        require: true,
+        required: true,
         trim: true,
         index: true,
     },
     avatar: {
         type: String, // Cloudinary's URL
-        require: [true, "user avatar is required"],
+        required: [true, "user avatar is required"],
     },
     coverImage: {
         type: String, // Cloudinary's URL
@@ -54,7 +50,6 @@ const userSchema = new Schema(userSchemaDefinition, { timestamps: true });
 userSchema.pre("save", async function(next){
     if(this.isModified("password"))
         this.password = await bcrypt.hash(this.password, 10);
-    next();
 });
 
 userSchema.methods.isPasswordCorrect = async function(password){

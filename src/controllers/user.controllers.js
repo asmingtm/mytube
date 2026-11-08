@@ -11,7 +11,7 @@ export const registerUser = asyncHandler(async (req, res) => {
         throw new ApiError(400, "All fields are required!");
     }
 
-    const existingUser = User.findOne({ $or: [{ usermame }, { email }] });
+    const existingUser = await User.findOne({ $or: [{ username }, { email }] });
 
     console.log("TEST | existingUser:", existingUser);
 
@@ -19,17 +19,21 @@ export const registerUser = asyncHandler(async (req, res) => {
         throw new ApiError(400, "User already exists!");
     }
 
-    console.log("TEST | req.file:", req.file);
+    console.log("TEST | req.files:", req.files);
 
-    const avatarLocalPath = req.file?.avatar[0]?.path;
-    const coverImageLocalPath = req.file?.coverImage[0]?.path;
+    const avatarLocalPath = req.files?.avatar[0]?.path;
+    let coverImageLocalPath;
+
+    if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0){
+        coverImageLocalPath = req.files.coverImage[0].path;
+    }
 
     if(!avatarLocalPath){
         throw new ApiError(400, "Avatar file is required!");
     }
 
     const avatar = await uploadToCloudinary(avatarLocalPath);
-    const coverImage = await uploadToCloudinary(coverImageLocalPath);
+    const coverImage = coverImageLocalPath ? await uploadToCloudinary(coverImageLocalPath) : null;
 
     if(!avatar){
         throw new ApiError("Failed to push avatar to cloudinary!");
@@ -44,7 +48,7 @@ export const registerUser = asyncHandler(async (req, res) => {
         password,
     });
 
-    const createdUser = User.findById(newUser?._id).select("-password -refreshToken");
+    const createdUser = await User.findById(newUser?._id).select("-password -refreshToken");
     if(!createdUser){
         throw new ApiError(500, "Something went wrong while registering user");
     }

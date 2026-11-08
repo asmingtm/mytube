@@ -3,8 +3,9 @@ export const asyncHandler = (reqHandler) => async (req, res, next) => {
         return await reqHandler(req, res, next);
     }
     catch(err){
-        res.status(err.code || 500).json({
-            sucess: false,
+        const statusCode = Number.isInteger(err.code) ? err.code : 500;
+        res.status(statusCode).json({
+            success: false,
             message: err.message
         });
     }
