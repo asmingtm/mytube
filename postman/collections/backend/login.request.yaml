@@ -1,0 +1,13 @@
+$kind: http-request
+url: http://localhost:8000/api/v1/users/login
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"username\": \"dummy\",\r
+
+    \    \"password\": \"dummy123\"\r
+
+    }"
+order: 1000
