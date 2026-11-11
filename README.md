@@ -1,5 +1,5 @@
 `Private`
-# Backend
+# MyTube
 A practice repository which contains my backend practice files.
 
 ## Links
