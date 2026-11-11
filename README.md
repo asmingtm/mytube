@@ -1,6 +1,6 @@
 `Private`
 # MyTube
-A practice repository which contains my backend practice files.
+A practice repository which contains my backend for a YouTube/Twitter styled application. (optimal for web & mobile)
 
 ## Links
 Sources & stored informations
