@@ -19,5 +19,9 @@ userRouter.route("/register").post(upload.fields([
 userRouter.route("/login").post(loginUser);
 
 // Secured routes
-userRouter.route("/logout").post(verifyJWT, logoutUser); // VerifyJWT is a middleware here
-userRouter.route("/token/refresh").post(refreshAccessToken); // JWT middleware is not required because authentication is technically handled by refreshAccessToken();
+
+/* VerifyJWT is a middleware here */
+userRouter.route("/logout").post(verifyJWT, logoutUser);
+
+/* JWT middleware is not required because authentication is technically handled by refreshAccessToken(); */
+userRouter.route("/token/refresh").post(refreshAccessToken);

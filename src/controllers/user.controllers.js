@@ -11,22 +11,6 @@ const cookieOptions = {
     secure: true
 }
 
-const generateAccessAndRefreshTokens = async (userId) => {
-    try{
-        const user = await User.findById(userId);
-        const accessToken = user.generateAccessToken();
-        const refreshToken = user.generateRefreshToken();
-
-        user.refreshToken = refreshToken;
-        await user.save({ validateBeforeSave: false });
-
-        return { accessToken, refreshToken }
-    }
-    catch(err){
-        throw new ApiError(500, "Something went wrong while generating Access and Refresh Tokens:", err);
-    }
-}
-
 export const registerUser = asyncHandler(async (req, res) => {
     const { username, email, fullName, password } = req.body;
 
@@ -80,14 +64,6 @@ export const registerUser = asyncHandler(async (req, res) => {
 });
 
 export const loginUser = asyncHandler(async (req, res) => {
-    // create a api route for login: /api/v1/user/login
-    // get data sent by user from req.body
-    // match username/email
-    // find the user: if no user => err
-    // if user: check password
-    // if match: generate access token and refresh token using our functions and send it back to the user.
-    // send cookie
-
     console.log("recived request:", req.body);
 
     const { username, email, password } = req.body;
@@ -137,6 +113,22 @@ export const logoutUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "User logged our sucessfully!"));
 });
 
+const generateAccessAndRefreshTokens = async (userId) => {
+    try{
+        const user = await User.findById(userId);
+        const accessToken = user.generateAccessToken();
+        const refreshToken = user.generateRefreshToken();
+
+        user.refreshToken = refreshToken;
+        await user.save({ validateBeforeSave: false });
+
+        return { accessToken, refreshToken }
+    }
+    catch(err){
+        throw new ApiError(500, "Something went wrong while generating Access and Refresh Tokens:", err);
+    }
+}
+
 export const refreshAccessToken = asyncHandler(async (req, res) => {
 	const incommingRefreshToken = req.cookies?.refreshAccessToken || req.body.refreshToken;
 	if(!incommingRefreshToken){
@@ -167,4 +159,48 @@ export const refreshAccessToken = asyncHandler(async (req, res) => {
 	catch (err) {
 		throw new ApiError(400, "Error when rewning token (invalid token)", err);
 	}
+});
+
+export const getCurrentUser = asyncHandler(async (req, res) => {
+    return res.status(200).json(new ApiResponse(200, req.user, "Current user fetched sucessfully"));
+});
+
+export const UserPassword = asyncHandler(async (req, res) => {
+    const { oldPassword, newPassword } = req.body;
+
+    const user = await User.findById(req.user?._id);
+
+    const isPasswordCorrect = await user.isPasswordCorrect(oldPassword);
+
+    if(!isPasswordCorrect){
+        throw new ApiError(400, "Old password did not match!");
+    }
+
+    user.password = newPassword;
+    await user.save({ validateBeforeSave: false });
+
+    return res.status(200).json(new ApiResponse(201, {}, "Password changed sucessfully"));
+});
+
+export const updateAccountDetails = asyncHandler(async (req, res) => {
+    const { fullName, email } = req.body;
+
+    if(!fullName || !email){
+        throw new ApiError(400, "All fields are required");
+    }
+
+    const user = await User.findByIdAndUpdate(
+        req.user?._id, 
+        {
+            $set: {
+                fullName,
+                email,
+            }
+        },
+        {
+            new: true,
+        }
+    ).select("-password");
+
+    return res.status(200).json(new ApiResponse(201, user, "Account details fetched sucessfully!"));
 });
