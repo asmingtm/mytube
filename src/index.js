@@ -1,7 +1,8 @@
 import "dotenv/config";
-import { connectDB } from "./db/index.js";
-import { app } from "./app.js";
-import { PORT } from "./constants.js";
+
+import { connectDB } from "#db";
+import { app } from "#app";
+import { PORT } from "#consts";
 
 connectDB().then(() => {
     app.on("error", err => {

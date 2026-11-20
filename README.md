@@ -1,8 +1,9 @@
 `Private`
 # MyTube
-A practice repository which contains my backend for a YouTube/Twitter styled application. (optimal for web & mobile)
+An industry ready backend for a Youtube & Twitter/X hybrid application made with `express` 
 
 ## Links
 Sources & stored informations
+- [Algorithms and instructions](./docs/algorithm.md)
 - [Refrence for models](https://app.eraser.io/workspace/YtPqZ1VogxGy1jzIDkzj)
-- [Legacy codes](./md/legacy.md)
+- [Legacy codes](./docs/legacy.md)

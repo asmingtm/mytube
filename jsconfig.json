@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        // Configs
+        "target": "esnext",
+
+        // Paths
+        "paths": {
+            "#app": ["./src/app/"],
+            "#consts": ["./src/consts/"],
+            "#controllers": ["./src/controllers/"],
+            "#db": ["./src/db/"],
+            "#middlewares": ["./src/middlewares/"],
+            "#models": ["./src/models/"],
+            "#routes": ["./src/route/s"],
+            "#services": ["./src/services/"],
+            "#utils": ["./src/utils/"]
+        }
+    }
+}
