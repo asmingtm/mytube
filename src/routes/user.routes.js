@@ -1,7 +1,6 @@
 import { Router } from "express";
-import { loginUser, logoutUser, refreshAccessToken, registerUser } from "../controllers/user.controllers.js";
-import { upload } from "../middlewares/multer.middleware.js"
-import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { upload, verifyJWT } from "#middlewares";
+import { loginUser, logoutUser, refreshUserAccessToken, registerUser } from "#controllers";
 
 export const userRouter = Router();
 
@@ -23,5 +22,5 @@ userRouter.route("/login").post(loginUser);
 /* VerifyJWT is a middleware here */
 userRouter.route("/logout").post(verifyJWT, logoutUser);
 
-/* JWT middleware is not required because authentication is technically handled by refreshAccessToken(); */
-userRouter.route("/token/refresh").post(refreshAccessToken);
+/* JWT middleware is not required because authentication is technically handled by refreshUserAccessToken(); */
+userRouter.route("/token/refresh").post(refreshUserAccessToken);

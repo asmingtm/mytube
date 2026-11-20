@@ -1,18 +1,18 @@
 {
-  "name": "practice-backend",
+  "name": "mytube",
   "version": "1.0.0",
   "description": "learning backend",
   "keywords": [
     "javascript",
     "backend"
   ],
-  "homepage": "https://github.com/asmingtm/practice-backend#readme",
+  "homepage": "https://github.com/asmingtm/mytube#readme",
   "bugs": {
-    "url": "https://github.com/asmingtm/practice-backend/issues"
+    "url": "https://github.com/asmingtm/mytube/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/asmingtm/practice-backend.git"
+    "url": "git+https://github.com/asmingtm/mytube.git"
   },
   "license": "ISC",
   "author": "Asmin Gautam",
@@ -20,6 +20,17 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js"
+  },
+  "imports": {
+    "#app": ["./src/app/index.js"],
+    "#consts": ["./src/consts/index.js"],
+    "#controllers": ["./src/controllers/index.js"],
+    "#db": ["./src/db/index.js"],
+    "#middlewares": ["./src/middlewares/index.js"],
+    "#models": ["./src/models/index.js"],
+    "#routes": ["./src/routes/index.js"],
+    "#services": ["./src/services/index.js"],
+    "#utils": ["./src/utils/index.js"]
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
